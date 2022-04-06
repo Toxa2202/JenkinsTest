@@ -17,9 +17,6 @@ pipeline {
     environment {
         // BUILD_TYPE = 56
         REPO_NAME = "dashweb-${BUILD_TYPE}"
-        PYTHONUNBUFFERED = 1
-        STRLN_AUTH = true
-        QUADRA_APISERVER = "https://api.quadra.p1.usw1.opendns.com"
         // BUILD_TYPE = getWebsiteVersion(params.BUILD_TYPE)
     }
 
