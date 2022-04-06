@@ -1,10 +1,10 @@
-def getWebsiteVersion(version) {
-    if (version == '') {
-        return '56'
-    } else {
-        return version
-    }
-}
+// def getWebsiteVersion(version) {
+//     if (version == '') {
+//         return '56'
+//     } else {
+//         return version
+//     }
+// }
 
 pipeline {
     agent any
