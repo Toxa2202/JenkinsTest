@@ -36,7 +36,7 @@ pipeline {
                 sh "rm -rf target/*.jar"
                 sh (label: "Clean workspace",script: "git clean -fdx")
                 echo "Version ${params.BUILD_TYPE}"
-                echo "Repository name ${REPO_NAME}"
+                echo "Repo name ${REPO_NAME}"
                 // Get some code from a GitHub repository
                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
