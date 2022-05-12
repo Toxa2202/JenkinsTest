@@ -24,10 +24,12 @@ pipeline {
         string(name: 'BUILD_NAME', defaultValue: '', description: 'Commit id to deploy')
         // string(name: 'BUILD_TYPE', defaultValue: '56', description: 'Current Website version')
         choice choices: ['56', '74'], description: '''Which type of container to build.''', name: 'BUILD_TYPE'
+        booleanParam name: 'DEPLOY_TO_DEV', defaultValue: false, description: 'Deploy to Dev'
     }
     
     stages {
         stage('Deploy') {
+            when { expression { DEPLOY_TO_DEV == 'true' }}
             steps {
                 script {
                     VERSION = "build-${REPO_NAME}-${BUILD_TYPE}"
