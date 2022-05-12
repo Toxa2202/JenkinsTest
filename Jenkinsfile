@@ -31,7 +31,7 @@ pipeline {
     
     stages {
         stage('Deploy to dev') {
-            when { expression { params.DEPLOY_TO_DEV == 'true' }}
+            when { expression { params.DEPLOY_TO_DEV == true }}
             steps {
                 script {
                     VERSION = "build-${REPO_NAME}-${BUILD_TYPE}"
