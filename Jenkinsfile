@@ -26,11 +26,32 @@ pipeline {
         // string(name: 'BUILD_TYPE', defaultValue: '56', description: 'Current Website version')
         choice choices: ['56', '74'], description: '''Which type of container to build.''', name: 'BUILD_TYPE'
         booleanParam name: 'DEPLOY_TO_DEV', defaultValue: false, description: 'Deploy to Dev'
+        booleanParam name: 'DEPLOY_TO_STAGE', defaultValue: false, description: 'Deploy to Stage'
     }
     
     stages {
         stage('Deploy') {
             when { expression { params.DEPLOY_TO_DEV == 'true' }}
+            steps {
+                script {
+                    VERSION = "build-${REPO_NAME}-${BUILD_TYPE}"
+                }
+                //Clear previous build
+                sh "rm -rf target/*.jar"
+                sh (label: "Clean workspace",script: "git clean -fdx")
+                echo "Version ${params.BUILD_TYPE}"
+                echo "Repo name ${REPO_NAME}"
+                // Get some code from a GitHub repository
+                git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+
+                // Run Maven on a Unix agent.
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                echo "VERSION is ${VERSION}"
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+        stage('Deploy') {
+            when { expression { DEPLOY_TO_STAGE == 'true' }}
             steps {
                 script {
                     VERSION = "build-${REPO_NAME}-${BUILD_TYPE}"
