@@ -29,6 +29,12 @@ pipeline {
     }
     
     stages {
+        stage ('Check boolean params') {
+            steps {
+                echo "Deploy_To_Dev ${params.DEPLOY_TO_DEV}"
+                echo "Deploy_To_Stage ${params.DEPLOY_TO_STAGE}"
+            }
+        }
         stage('Deploy to dev') {
             when { expression { return params.DEPLOY_TO_DEV }}
             steps {
