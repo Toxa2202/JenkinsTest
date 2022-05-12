@@ -61,7 +61,7 @@ pipeline {
             }
         }
         stage('Deploy to stage') {
-            when { expression { DEPLOY_TO_STAGE == 'true' }}
+            when { expression { DEPLOY_TO_STAGE == true }}
             steps {
                 script {
                     VERSION = "build-${REPO_NAME}-${BUILD_TYPE}"
