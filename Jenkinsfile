@@ -30,7 +30,7 @@ pipeline {
     }
     
     stages {
-        stage('Deploy') {
+        stage('Deploy to dev') {
             when { expression { params.DEPLOY_TO_DEV == 'true' }}
             steps {
                 script {
@@ -60,7 +60,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy to stage') {
             when { expression { DEPLOY_TO_STAGE == 'true' }}
             steps {
                 script {
